@@ -68,6 +68,7 @@ export default function ReservationForm() {
         description: "There was a problem creating your reservation. Please try again.",
         variant: "destructive",
       })
+      throw error
     }
   }
 
@@ -138,65 +139,65 @@ export default function ReservationForm() {
             {/* Reservation Details */}
             <div className="space-y-4">
               <div className="text-lg font-semibold">Reservation Details</div>
-              <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 md:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="date"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Date</FormLabel>
-                      <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "w-[280px] justify-start text-left font-normal",
-            !date && "text-muted-foreground"
-          )}
-        >
-          <CalendarIcon />
-         
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-        />
-      </PopoverContent>
-    </Popover>
-                      <FormMessage />
-                    </FormItem>
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Date</FormLabel>
+                    <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[280px] justify-start text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                      >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {field.value ? field.value.toLocaleDateString() : "Select date"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      initialFocus
+                      />
+                    </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
                   name="time"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Time</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger className="w-full">
-                            <Clock className="mr-2 h-4 w-4" />
-                            <SelectValue placeholder="Select time" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {timeSlots.map((time) => (
-                            <SelectItem key={time} value={time}>
-                              {time}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
+                  <FormItem>
+                    <FormLabel>Time</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                      <Clock className="mr-2 h-4 w-4" />
+                      <SelectValue placeholder="Select time" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {timeSlots.map((time) => (
+                      <SelectItem key={time} value={time}>
+                        {time}
+                      </SelectItem>
+                      ))}
+                    </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
                   )}
                 />
-              </div>
+                </div>
 
               <div className="grid gap-4 md:grid-cols-2">
                 <FormField
@@ -264,7 +265,7 @@ export default function ReservationForm() {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>Please note that we'll do our best to accommodate your requests.</FormDescription>
+                    <FormDescription>Please note that we&apos;ll do our best to accommodate your requests.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

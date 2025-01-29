@@ -1,11 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { MenuCard } from "../MenuCard";
-import Link from "next/link";
-import Menu from "@/app/menu/(components)/Menu";
+
 import DashboardMenu from "./(dashcomo)/DashBoardMenu";
 
 // Sample data
@@ -80,7 +76,7 @@ const Dashboard = () => {
         <div>
           <h1 className="text-3xl font-bold">Featured Menu Items</h1>
           <p className="text-muted-foreground">
-            Manage and update your restaurant's offerings
+            Manage and update your restaurant&apos;s offerings
           </p>
         </div>
       </div>
